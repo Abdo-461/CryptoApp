@@ -62,17 +62,20 @@ class Landing extends Component {
     render() {
         const{isLoaded, allCryptoCoins,currentCryptoCoins,currentPage,totalPages} = this.state;
         const totalCryptoCoins = allCryptoCoins.length;
-
+        //if api is empty
         if(totalCryptoCoins === 0){
 
             return <div>There are no crypto coins in this api!</div>
         }
+        //if sever is taking too long to respond
         else if(!isLoaded){
             return <div>Loading.....</div>
         }
+        //if the server returned back any error
         else if(this.state.hasError === true){
             return <div>Sorry, there seems to be a problem with the server!</div>
         }
+        //show coins information
         else{
             return (
                 <div className="container mb-5">
