@@ -42,7 +42,9 @@ class Landing extends Component {
     //display a limited number of coins in a page
     //withing a sepcified set of pages
     onPageChange = data => {
+        const { allCryptoCoins } = this.state;
         const{currentPage, totalPages, pageLimit} = data;
+        //call the api with special paramters
         axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=aud&order=market_cap_desc&page=${currentPage}&limit=${pageLimit}&sparkline=false`)
             .then(response => {
                 const currentCryptoCoins = response.data.id;
@@ -55,7 +57,8 @@ class Landing extends Component {
             () => {
                 this.setState({hasError:true});
             });
-        }   
+        }  
+
     render() {
         const{isLoaded, allCryptoCoins,currentCryptoCoins,currentPage,totalPages} = this.state;
         const totalCryptoCoins = allCryptoCoins.length;
