@@ -46,9 +46,9 @@ class Pagination extends Component {
 
         const paginationData = {
             currentPage,
-            totalPage = this.totalPage,
-            pageLimit = this.pageLimit,
-            totalRecords = this.totalRecords 
+            totalPage: this.totalPage,
+            pageLimit: this.pageLimit,
+            totalRecords: this.totalRecords 
         };
         //always set pagination data to the current page
         this.setState({ currentPage }, () => onPageChange(paginationData));
@@ -56,7 +56,7 @@ class Pagination extends Component {
 
     //pagination tab page number controller
     //handle clicks to page change
-    handleClick = page => e => {
+    handleClick = page => ev => {
         ev.preventDefault();
         this.goToPage(page);
     }
@@ -84,7 +84,7 @@ class Pagination extends Component {
 
         if(totalPage > totalNumBlocks){
             const firstPage = Math.max(2, currentPage - pageNeighbours);
-            const lastPage  = Match.min(totalPage - 1, currentPage + pageNeighbours);
+            const lastPage  = Math.min(totalPage - 1, currentPage + pageNeighbours);
 
             let pages = range(firstPage,lastPage);
 
@@ -111,7 +111,7 @@ class Pagination extends Component {
 
                 case(leftNum && rightNum):
                 default: {
-                    pages = [left_page, ...page, right_page];
+                    pages = [left_page, ...pages, right_page];
                     break;
                 }
             }
@@ -153,7 +153,7 @@ class Pagination extends Component {
                             );
                             
                             return (
-                                <li key={index} className={`item${ currentPage = page ? 'active' : ''}`}>
+                                <li key={index} className={`item${ currentPage === page ? 'active' : ''}`}>
                                     <a className="link" href="#" onClick={this.handleClick(page)}> 
                                         {page} 
                                     </a>
@@ -168,7 +168,7 @@ class Pagination extends Component {
 }
 
 //validate data props passes in components
-Pagination.PropTypes = {
+Pagination.propTypes = {
     totalRecords: PropTypes.number.isRequired,
     pageLimit: PropTypes.number,
     pageNeighbours: PropTypes.number,
