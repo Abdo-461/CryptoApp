@@ -83,7 +83,7 @@ export default function CoinFilter() {
                                                 Coin Symbol: <span>{coins.symbol}</span>
                                             </li>
                                             <li>
-                                                Coin Price: <span>{coins.market_price}</span>
+                                                Coin Price: $<span>{coins.current_price}</span>
                                             </li>
                                         </ol>
                                     </div>
